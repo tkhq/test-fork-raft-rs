@@ -76,6 +76,11 @@ pub struct Config {
     /// If it is 0, then 2 * election_tick will be chosen.
     pub max_election_tick: usize,
 
+    /// Seeds the generator that draws the randomized election timeout, so a
+    /// deterministic simulation can replay a run. `None` seeds it from the
+    /// operating system.
+    pub election_seed: Option<u64>,
+
     /// Choose the linearizability mode or the lease mode to read data. If you don’t care about the read consistency and want a higher read performance, you can use the lease mode.
     ///
     /// Setting this to `LeaseBased` requires `check_quorum = true`.
@@ -121,6 +126,7 @@ impl Default for Config {
             pre_vote: false,
             min_election_tick: 0,
             max_election_tick: 0,
+            election_seed: None,
             read_only_option: ReadOnlyOption::Safe,
             skip_bcast_commit: false,
             batch_append: false,
