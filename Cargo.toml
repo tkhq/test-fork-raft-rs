@@ -22,6 +22,10 @@ failpoints = ["fail/failpoints"]
 protobuf-codec = ["raft-proto/protobuf-codec", "bytes"]
 prost-codec = ["raft-proto/prost-codec"]
 default-logger = ["slog-stdlog", "slog-envlogger", "slog-term"]
+# Let `Config::election_seed` seed the election timeout's generator, so a
+# deterministic simulation can replay a run. Off, the generator is the
+# thread's, seeded by the operating system, as without the feature.
+election-seed = []
 
 # Make sure to synchronize updates with Harness.
 [dependencies]
